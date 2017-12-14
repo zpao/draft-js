@@ -21,7 +21,7 @@
   "repository": "facebook/draft-js",
   "license": "BSD-3-Clause",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "yarn run build",
     "pretest": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
     "build": "gulp",
     "dev": "gulp dev",
@@ -30,7 +30,7 @@
     "format": "eslint . --fix",
     "flow": "flow src",
     "test": "NODE_ENV=test jest",
-    "test-ci": "NODE_ENV=test npm run lint && npm run flow && npm run test"
+    "test-ci": "NODE_ENV=test yarn run lint && yarn run flow && yarn run test"
   },
   "dependencies": {
     "fbjs": "^0.8.15",

@@ -6,8 +6,7 @@ node_js:
 sudo: false
 
 cache:
-  directories:
-  - node_modules
+  yarn: true
 
 env:
   matrix:
@@ -29,17 +28,6 @@ addons:
     packages:
       - g++-4.8
 
-before_install:
-- npm install -g npm@latest-2
-- npm --version
-
-install:
-# Remove any unncessary packages. Probably unnecessary but potentially helpful
-- npm prune
-# Update runs install, but will also pull in the latest updates so the cache
-# doesn't get stale
-- npm update
-
 before_script:
 # For additional debugging when Travis inevitably gets into a bad state.
 - npm ls --depth=0
@@ -48,7 +36,7 @@ script:
 - |
   if [ "$TEST_TYPE" != build_website ]
   then
-    npm run $TEST_TYPE
+    yarn run $TEST_TYPE
   else
     set -e
     ./node_modules/.bin/gulp
