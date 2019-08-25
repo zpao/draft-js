@@ -1,14 +1,11 @@
 name: Build & Test
 on: [push, pull_request]
 
-base_job_strategy: &base_job_strategy
-  strategy:
-    matrix:
-      node: [8, 10]
-
 jobs:  
-  build_and_test:
-    <<: *base_job_strategy
+  build:
+    strategy:
+      matrix:
+        node: [8, 10]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -21,6 +18,57 @@ jobs:
       - run: npm install -g yarn
       - run: yarn install
       - run: yarn run build
-      - run: yarn run lint
-      - run: yarn run flow
+
+  test:
+    needs: build
+    strategy:
+      matrix:
+        node: [8, 10]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install -g yarn
+      - run: yarn install
       - run: yarn run test
+
+  lint:
+    needs: build
+    strategy:
+      matrix:
+        node: [8, 10]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn run lint
+
+  flow:
+    needs: build
+    strategy:
+      matrix:
+        node: [8, 10]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn run flow
