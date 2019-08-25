@@ -2,7 +2,7 @@ name: Build & Test
 on: [push, pull_request]
 
 jobs:  
-  build:
+  build: &build
     strategy:
       matrix:
         node: [8, 10]
@@ -20,11 +20,8 @@ jobs:
       - run: yarn run build
 
   test:
+    <<: *build
     needs: build
-    strategy:
-      matrix:
-        node: [8, 10]
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
         with:
