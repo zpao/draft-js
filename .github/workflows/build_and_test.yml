@@ -1,11 +1,14 @@
 name: Build & Test
 on: [push, pull_request]
 
+base_job_strategy: &base_job_strategy
+  strategy:
+    matrix:
+      node: [8, 10]
+
 jobs:  
   build_and_test:
-    strategy:
-      matrix:
-        node: [8, 10, 12]
+    <<: *base_job_strategy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
