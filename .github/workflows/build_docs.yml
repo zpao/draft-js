@@ -15,8 +15,9 @@ jobs:
         with:
           node-version: 12
       - run: npm install -g yarn
-      - run:
-        - cd website
-        - pwd
-        - yarn install
-        - yarn run build
+      - run: |
+        cd website
+        pwd
+        yarn install
+        yarn run build
+      - run: echo $PATH
