@@ -8,10 +8,10 @@
 const siteConfig = {
   title: 'Draft.js' /* title for your website */,
   tagline: 'Rich Text Editor Framework for React',
-  url: 'https://draftjs.org' /* your website url */,
-  cname: 'draftjs.org',
-  baseUrl: '/' /* base url for your project */,
-  organizationName: 'facebook',
+  url: 'https://zpao.github.io' /* your website url */,
+  // cname: 'draftjs.org',
+  baseUrl: '/draft-js/' /* base url for your project */,
+  organizationName: 'zpao',
   projectName: 'draft-js',
   headerLinks: [
     {doc: 'getting-started', label: 'Docs'},
