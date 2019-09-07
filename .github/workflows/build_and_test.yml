@@ -3,10 +3,11 @@ on: [push, pull_request]
 
 jobs:  
   build:
+    name: Build
     strategy:
       fail-fast: false
       matrix:
-        node: [8, 10, 12]
+        node: [8, 10]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -21,10 +22,11 @@ jobs:
       - run: yarn run build
 
   test:
+    name: Test
     strategy:
       fail-fast: false
       matrix:
-        node: [8, 10, 12]
+        node: [8, 10]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -39,6 +41,7 @@ jobs:
       - run: yarn run test
 
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -52,7 +55,8 @@ jobs:
       - run: yarn install
       - run: yarn run lint
 
-  flow:
+  typecheck:
+    name: Typecheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -66,17 +70,3 @@ jobs:
       - run: yarn install
       - run: yarn run flow
 
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npm install -g yarn
-      - run: cd website
-      - run: yarn install
-      - run: yarn run build
